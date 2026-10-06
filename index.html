@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0031)https://clockfyeden.vercel.app/ -->
 <html lang="he" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -243,6 +242,30 @@ textarea::placeholder,select::placeholder{color:var(--text3)}
 .export-btn.excel:hover{background:#1a5c38}
 .export-btn.pdf{background:#cc2222;color:white}
 .export-btn.pdf:hover{background:#a81b1b}
+/* BANK HOURS (monthly retainer) */
+.bank-card{display:none;background:var(--surface);border-radius:var(--r);border:1px solid var(--border);padding:1rem 1.25rem;margin-bottom:1rem;box-shadow:var(--shadow)}
+.bank-card.show{display:block}
+.bank-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.bank-title{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.8px}
+.bank-nums{font-size:20px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+.bank-nums small{font-size:13px;font-weight:500;color:var(--text3)}
+.bank-bar{height:10px;background:var(--bg);border-radius:6px;overflow:hidden;display:flex}
+.bank-fill{height:100%;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width .4s}
+.bank-extra{height:100%;background:linear-gradient(90deg,#818cf8,#6366f1);transition:width .4s}
+.bank-note{font-size:13px;color:var(--text2);margin-top:10px}
+.bank-note b{color:var(--text);font-weight:600}
+/* CLIENT MANAGEMENT / ARCHIVE */
+.cl-list{display:flex;flex-direction:column}
+.cl-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--border)}
+.cl-row:last-child{border-bottom:none}
+.cl-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.cl-name{flex:1;min-width:0;font-size:14px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cl-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:rgba(99,102,241,.1);color:#6366f1;white-space:nowrap}
+.cl-btn{font-size:12px;font-family:'Heebo',sans-serif;padding:5px 10px;border-radius:7px;border:1.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;white-space:nowrap}
+.cl-btn:hover{border-color:var(--accent);color:var(--text)}
+.cl-empty{font-size:13px;color:var(--text3);padding:6px 0}
+.cl-section{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.8px;margin-top:4px}
+#manageClientsModal .modal-body{max-height:65vh;overflow-y:auto}
 </style>
 </head>
 <body>
@@ -256,16 +279,16 @@ textarea::placeholder,select::placeholder{color:var(--text3)}
       <line x1="32" y1="32" x2="42" y2="36" stroke="#00c896" stroke-width="3" stroke-linecap="round"></line>
       <circle cx="32" cy="32" r="2.5" fill="#00c896"></circle>
     </svg>
-    <span id="currentClientName" data-full="שעות עבודה — עדן ברוך (אשרי סבג)" data-short="שעות עבודה — עדן" style="background-image: linear-gradient(135deg, rgb(0, 200, 150), rgb(0, 151, 178)); background-clip: text; -webkit-text-fill-color: transparent;">שעות עבודה — עדן ברוך (אשרי סבג)</span>
+    <span id="currentClientName" data-full="שעות עבודה — עדן ברוך" data-short="שעות עבודה — עדן">שעות עבודה — עדן ברוך</span>
   </div>
   <div style="display:flex;align-items:center;gap:8px">
-    <select id="clientSwitcher" onchange="onClientSwitcherChange(this.value)" style="font-size:13px;font-weight:600;border:1.5px solid var(--border2);border-radius:20px;padding:5px 28px 5px 14px;background:var(--surface2);color:var(--text);cursor:pointer;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22 viewBox=%220 0 10 6%22%3E%3Cpath d=%22M1 1l4 4 4-4%22 stroke=%22%2394a3b8%22 stroke-width=%221.5%22 fill=%22none%22 stroke-linecap=%22round%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:left 8px center;font-family:'Heebo',sans-serif;outline:none;min-width:130px;" fdprocessedid="0kzefx"><option value="ashri">אשרי סבג</option><option value="yosef">יוסף שטיינר</option><option value="aya">איה בל</option><option value="_1785679285300">דנה</option><option value="_1789562375102">טוביה רז</option><option value="__add__">➕ הוסף לקוח חדש</option></select>
+    <select id="clientSwitcher" onchange="onClientSwitcherChange(this.value)" style="font-size:13px;font-weight:600;border:1.5px solid var(--border2);border-radius:20px;padding:5px 28px 5px 14px;background:var(--surface2);color:var(--text);cursor:pointer;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22 viewBox=%220 0 10 6%22%3E%3Cpath d=%22M1 1l4 4 4-4%22 stroke=%22%2394a3b8%22 stroke-width=%221.5%22 fill=%22none%22 stroke-linecap=%22round%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:left 8px center;font-family:'Heebo',sans-serif;outline:none;min-width:130px;"><option value="__add__">➕ הוסף לקוח חדש</option></select>
   <div style="display:flex;align-items:center;gap:10px">
     <span class="sync-dot ok" id="syncDot" title="סטטוס סנכרון"></span>
     <div class="nav-tabs" id="navTabs">
-      <button class="nav-tab active" onclick="showPage('track')" fdprocessedid="mq1zl">מעקב</button>
-      <button class="nav-tab" onclick="showPage('log')" fdprocessedid="alyvw7">יומן</button>
-      <button class="nav-tab" onclick="showPage('share')" fdprocessedid="zgjac1a">שיתוף</button>
+      <button class="nav-tab active" onclick="showPage('track')">מעקב</button>
+      <button class="nav-tab" onclick="showPage('log')">יומן</button>
+      <button class="nav-tab" onclick="showPage('share')">שיתוף</button>
     </div>
   </div>
 </div></nav>
@@ -278,27 +301,29 @@ textarea::placeholder,select::placeholder{color:var(--text3)}
     </div>
     <div class="timer-display" id="timerDisplay">00:00:00</div>
     <div class="btn-row">
-      <button class="btn-in" id="btnIn" onclick="clockIn()" fdprocessedid="0mxbo">▶ &nbsp;כניסה</button>
+      <button class="btn-in" id="btnIn" onclick="clockIn()">▶ &nbsp;כניסה</button>
       <button class="btn-out" id="btnOut" onclick="clockOut()" disabled="">■ &nbsp;יציאה</button>
     </div>
   </div>
+
+  <div class="bank-card" id="bankCard"></div>
 
   <div class="settings-card">
     <div class="settings-section" id="topicsSection" style="display: block;">
       <div class="field-label">נושא עבודה</div>
       <div class="topics" id="topicButtons">
-        <button class="topic-btn" data-topic="אופרציה והקמת לקוח" onclick="selectTopic(this)" fdprocessedid="dto5kj">🏗️ אופרציה והקמת לקוח</button>
-        <button class="topic-btn" data-topic="פיתוח עסקי" onclick="selectTopic(this)" fdprocessedid="lv94av">📈 פיתוח עסקי</button>
-        <button class="topic-btn" data-topic="מערכות AI" onclick="selectTopic(this)" fdprocessedid="4jwdsn">🤖 מערכות AI</button>
-        <button class="topic-btn" data-topic="כללי" onclick="selectTopic(this)" fdprocessedid="jiqc0c">📋 כללי</button>
-        <button class="topic-btn" data-topic="משימות" onclick="selectTopic(this)" fdprocessedid="n6nr8">✅ משימות</button>
+        <button class="topic-btn" data-topic="אופרציה והקמת לקוח" onclick="selectTopic(this)">🏗️ אופרציה והקמת לקוח</button>
+        <button class="topic-btn" data-topic="פיתוח עסקי" onclick="selectTopic(this)">📈 פיתוח עסקי</button>
+        <button class="topic-btn" data-topic="מערכות AI" onclick="selectTopic(this)">🤖 מערכות AI</button>
+        <button class="topic-btn" data-topic="כללי" onclick="selectTopic(this)">📋 כללי</button>
+        <button class="topic-btn" data-topic="משימות" onclick="selectTopic(this)">✅ משימות</button>
       </div>
 
     </div>
     <div class="settings-section" id="descSection">
       <div id="clientSelectWrap" style="display: block; margin-bottom: 12px;">
         <div class="field-label">לקוח</div>
-        <input type="text" id="clientNameInput" value="משרד" placeholder="שם הלקוח" style="width:100%;border:1.5px solid var(--border2);border-radius:var(--r-sm);padding:9px 14px;font-size:13px;font-family:'Heebo',sans-serif;background:var(--surface2);color:var(--text);outline:none" fdprocessedid="x24f7p">
+        <input type="text" id="clientNameInput" value="משרד" placeholder="שם הלקוח" style="width:100%;border:1.5px solid var(--border2);border-radius:var(--r-sm);padding:9px 14px;font-size:13px;font-family:'Heebo',sans-serif;background:var(--surface2);color:var(--text);outline:none">
       </div>
       <div class="field-label">תיאור (אופציונלי)</div>
       <textarea id="descInput" placeholder="על מה עבדת?"></textarea>
@@ -432,7 +457,7 @@ textarea::placeholder,select::placeholder{color:var(--text3)}
 <div class="modal-overlay" id="addClientModal">
   <div class="modal">
     <div class="modal-head">
-      <h3>הוסף לקוח חדש</h3>
+      <h3 id="addClientTitle">הוסף לקוח חדש</h3>
       <button class="modal-close" onclick="closeAddClient()">×</button>
     </div>
     <div class="modal-body">
@@ -460,10 +485,39 @@ textarea::placeholder,select::placeholder{color:var(--text3)}
           <option value="true">עם נושאים (כמו אשרי)</option>
         </select>
       </div>
+      <div class="modal-field">
+        <label>סוג חיוב</label>
+        <select id="newClientBilling" onchange="toggleBankFields()">
+          <option value="hourly">לפי שעה</option>
+          <option value="bank">בנק שעות חודשי</option>
+        </select>
+      </div>
+      <div id="bankFields" style="display:none">
+        <div class="modal-row" style="grid-template-columns:1fr 1fr 1fr">
+          <div class="modal-field"><label>שעות בחבילה</label><input type="number" id="newBankHours" min="0" step="0.5" value="10"></div>
+          <div class="modal-field"><label>מחיר חבילה ₪</label><input type="number" id="newBankPrice" min="0" step="1" value="1000"></div>
+          <div class="modal-field"><label>שעה נוספת ₪</label><input type="number" id="newExtraPrice" min="0" step="1" value="100"></div>
+        </div>
+      </div>
     </div>
     <div class="modal-foot">
       <button class="btn-modal-cancel" onclick="closeAddClient()">ביטול</button>
-      <button class="btn-modal-save" onclick="saveNewClient()">הוסף לקוח</button>
+      <button class="btn-modal-save" id="addClientSaveBtn" onclick="saveNewClient()">הוסף לקוח</button>
+    </div>
+  </div>
+</div>
+
+<!-- MANAGE CLIENTS / ARCHIVE MODAL -->
+<div class="modal-overlay" id="manageClientsModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>ניהול לקוחות</h3>
+      <button class="modal-close" onclick="closeManageClients()">×</button>
+    </div>
+    <div class="modal-body" id="manageClientsBody"></div>
+    <div class="modal-foot">
+      <button class="btn-modal-cancel" onclick="closeManageClients()">סגור</button>
+      <button class="btn-modal-save" onclick="closeManageClients();openAddClient()">➕ לקוח חדש</button>
     </div>
   </div>
 </div>
@@ -619,38 +673,55 @@ async function loadClients(){
       headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
     });
     const clients=await r.json();
+    if(!Array.isArray(clients))throw new Error('bad clients response');
     CLIENTS_CONFIG={};
-    clients.forEach(function(c){
-      CLIENTS_CONFIG[c.id]={name:c.name,color1:c.color1,color2:c.color2,topics:c.topics};
-    });
+    clients.forEach(function(c){CLIENTS_CONFIG[c.id]=clientFromRow(c);});
     // Cache so the correct client renders instantly on the next load (no flash of default)
     try{localStorage.setItem('clients_cache',JSON.stringify(CLIENTS_CONFIG));}catch(e){}
     // Rebuild client switcher
     buildClientSwitcher();
   }catch(e){
-    // fallback
-    CLIENTS_CONFIG={
-      ashri:{name:'אשרי סבג',color1:'#00c896',color2:'#0097b2',topics:true},
-      yosef:{name:'יוסף שטיינר',color1:'#3b82f6',color2:'#1d4ed8',topics:false},
-      aya:{name:'איה בל',color1:'#a855f7',color2:'#7c3aed',topics:false}
-    };
+    // fallback: keep the cached list if we have one, otherwise the built-in defaults
+    if(!activeClientIds().length){
+      CLIENTS_CONFIG={
+        ashri:{name:'אשרי סבג',color1:'#00c896',color2:'#0097b2',topics:true},
+        yosef:{name:'יוסף שטיינר',color1:'#3b82f6',color2:'#1d4ed8',topics:false},
+        aya:{name:'איה בל',color1:'#a855f7',color2:'#7c3aed',topics:false,billing_mode:'bank',bank_hours:10,bank_price:1000,extra_hour_price:100}
+      };
+    }
     buildClientSwitcher();
   }
 }
+// Normalise a row from the "clients" table. Missing columns (SQL not run yet) fall back to safe defaults.
+function clientFromRow(c){
+  return{
+    name:c.name,color1:c.color1,color2:c.color2,topics:c.topics,
+    archived:!!c.archived,
+    billing_mode:c.billing_mode||'hourly',
+    bank_hours:Number(c.bank_hours)||0,
+    bank_price:Number(c.bank_price)||0,
+    extra_hour_price:Number(c.extra_hour_price)||0
+  };
+}
+function activeClientIds(){return Object.keys(CLIENTS_CONFIG).filter(function(id){return !CLIENTS_CONFIG[id].archived;});}
+function archivedClientIds(){return Object.keys(CLIENTS_CONFIG).filter(function(id){return CLIENTS_CONFIG[id].archived;});}
+function cacheClients(){try{localStorage.setItem('clients_cache',JSON.stringify(CLIENTS_CONFIG));}catch(e){}}
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(ch){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}
 
 function buildClientSwitcher(){
   var sel=document.getElementById('clientSwitcher');
   if(!sel)return;
-  sel.innerHTML=Object.entries(CLIENTS_CONFIG).map(function(e){
-    return '<option value="'+e[0]+'">'+e[1].name+'</option>';
-  }).join('')+'<option value="__add__">➕ הוסף לקוח חדש</option>';
+  // Archived clients are hidden from the switcher (their data stays in Supabase)
+  sel.innerHTML=activeClientIds().map(function(id){
+    return '<option value="'+id+'">'+esc(CLIENTS_CONFIG[id].name)+'</option>';
+  }).join('')+'<option value="__manage__">⚙️ ניהול לקוחות / ארכיון</option><option value="__add__">➕ הוסף לקוח חדש</option>';
   sel.value=currentClient;
 }
 function onClientSwitcherChange(val){
-  if(val==='__add__'){
+  if(val==='__add__'||val==='__manage__'){
     var sel=document.getElementById('clientSwitcher');
     if(sel)sel.value=currentClient;
-    openAddClient();
+    if(val==='__add__')openAddClient();else openManageClients();
     return;
   }
   switchClient(val);
@@ -684,6 +755,56 @@ function isThisWeek(ts){
   startOfWeek.setHours(0,0,0,0);
   return ts>=startOfWeek.getTime();
 }
+// ---- Monthly hours bank (retainer) ----
+// Fixed price always paid; minutes beyond the bank are billed proportionally (1:30 extra = 1.5 × hourly price).
+function isBankClient(cfg){return !!(cfg&&cfg.billing_mode==='bank'&&cfg.bank_hours>0);}
+function fmtMin(min){return Math.floor(min/60)+':'+pad(min%60);}
+function fmtILS(n){return '₪'+Math.round(n).toLocaleString();}
+function bankCalc(cfg,totalMs){
+  var usedMin=Math.floor(totalMs/60000);
+  var bankMin=Math.round(cfg.bank_hours*60);
+  var extraMin=Math.max(0,usedMin-bankMin);
+  var extra=Math.round(extraMin/60*cfg.extra_hour_price);
+  return{usedMin:usedMin,bankMin:bankMin,extraMin:extraMin,remainingMin:Math.max(0,bankMin-usedMin),extra:extra,total:cfg.bank_price+extra,over:extraMin>0};
+}
+// Time worked in the current calendar month, including a running clock
+function currentMonthMs(){
+  var now=new Date();
+  var monthStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
+  var ms=state.entries.reduce(function(a,e){return e.start>=monthStart?a+(e.end-e.start):a;},0);
+  if(state.active)ms+=Math.max(0,Date.now()-Math.max(state.active.start,monthStart));
+  return ms;
+}
+function renderBankCard(){
+  var card=document.getElementById('bankCard');
+  if(!card)return;
+  var cfg=CLIENTS_CONFIG[currentClient];
+  if(!isBankClient(cfg)){card.classList.remove('show');card.innerHTML='';return;}
+  var b=bankCalc(cfg,currentMonthMs());
+  var scale=Math.max(b.usedMin,b.bankMin)||1;
+  var baseW=Math.min(b.usedMin,b.bankMin)/scale*100;
+  var extraW=b.extraMin/scale*100;
+  var note=b.over
+    ?'שעות נוספות <b>'+fmtMin(b.extraMin)+'</b> · תוספת <b>'+fmtILS(b.extra)+'</b> · סה״כ <b>'+fmtILS(b.total)+'</b>'
+    :'נותרו <b>'+fmtMin(b.remainingMin)+'</b> · כלול בחבילה ('+fmtILS(cfg.bank_price)+')';
+  card.innerHTML='<div class="bank-head"><span class="bank-title">בנק שעות · '+monthLabel(Date.now())+'</span>'
+    +'<span class="bank-nums" dir="ltr">'+fmtMin(b.usedMin)+' <small>/ '+fmtMin(b.bankMin)+'</small></span></div>'
+    +'<div class="bank-bar"><div class="bank-fill" style="width:'+baseW+'%"></div><div class="bank-extra" style="width:'+extraW+'%"></div></div>'
+    +'<div class="bank-note">'+note+'</div>';
+  card.classList.add('show');
+}
+// Payment rows for a set of entries of a bank client, grouped per calendar month
+function bankSummaryForEntries(cfg,entries){
+  var perMonth={};
+  entries.forEach(function(e){var k=monthKey(e.start);perMonth[k]=(perMonth[k]||0)+(e.end-e.start);});
+  var res={months:0,usedMin:0,extraMin:0,extra:0,total:0};
+  Object.values(perMonth).forEach(function(ms){
+    var b=bankCalc(cfg,ms);
+    res.months++;res.usedMin+=b.usedMin;res.extraMin+=b.extraMin;res.extra+=b.extra;res.total+=b.total;
+  });
+  return res;
+}
+
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
 
 function groupByMonthAndDay(entries){
@@ -896,12 +1017,13 @@ function updateUI(){
   if(running){
     pill.classList.add('active');dot.classList.add('on');stxt.textContent='פעיל עכשיו';disp.classList.add('running');
     clearInterval(timerInterval);
-    timerInterval=setInterval(()=>{disp.textContent=formatElapsed(Date.now()-state.active.start)},1000);
+    timerInterval=setInterval(()=>{disp.textContent=formatElapsed(Date.now()-state.active.start);renderBankCard()},1000);
     disp.textContent=formatElapsed(Date.now()-state.active.start);
   }else{
     clearInterval(timerInterval);
     pill.classList.remove('active');dot.classList.remove('on');stxt.textContent='לא פעיל';disp.classList.remove('running');disp.textContent='00:00:00';
   }
+  renderBankCard();
   document.getElementById('btnIn').disabled=running;
   document.getElementById('btnOut').disabled=!running;
   const now=new Date();
@@ -939,6 +1061,30 @@ function renderFullLog(){
   const hours=totalMs/3600000;
   const payment=Math.round(hours*100);
   const uniqueDaysLog=new Set(entries.map(e=>dayKey(e.start)));
+  let rateRows=`<div class="payment-row">
+      <span class="payment-label">תעריף</span>
+      <span class="payment-val">100 ₪ לשעה</span>
+    </div>
+    <div class="payment-row total">
+      <span class="payment-label">לתשלום</span>
+      <span class="payment-val">₪${payment.toLocaleString()}</span>
+    </div>`;
+  if(isBankClient(cfg)&&entries.length){
+    const bs=bankSummaryForEntries(cfg,entries);
+    const pkgLabel=bs.months>1?`חבילה חודשית × ${bs.months}`:'חבילה חודשית';
+    rateRows=`<div class="payment-row">
+      <span class="payment-label">${pkgLabel}: ${cfg.bank_hours} שעות</span>
+      <span class="payment-val">${fmtILS(cfg.bank_price*bs.months)}</span>
+    </div>
+    <div class="payment-row">
+      <span class="payment-label">${bs.extraMin?`שעות נוספות: ${fmtMin(bs.extraMin)} × ${fmtILS(cfg.extra_hour_price)}`:'שעות נוספות'}</span>
+      <span class="payment-val">${bs.extraMin?fmtILS(bs.extra):'כלול בחבילה'}</span>
+    </div>
+    <div class="payment-row total">
+      <span class="payment-label">סה״כ לתשלום</span>
+      <span class="payment-val">${fmtILS(bs.total)}</span>
+    </div>`;
+  }
   const payHTML=`<div class="payment-summary">
     <div class="payment-row">
       <span class="payment-label">סה״כ שעות</span>
@@ -948,14 +1094,7 @@ function renderFullLog(){
       <span class="payment-label">ימי עבודה</span>
       <span class="payment-val">${uniqueDaysLog.size}</span>
     </div>
-    <div class="payment-row">
-      <span class="payment-label">תעריף</span>
-      <span class="payment-val">100 ₪ לשעה</span>
-    </div>
-    <div class="payment-row total">
-      <span class="payment-label">לתשלום</span>
-      <span class="payment-val">₪${payment.toLocaleString()}</span>
-    </div>
+    ${rateRows}
   </div>`;
   document.getElementById('fullLog').innerHTML=payHTML+renderMonthGroups(entries,true);
 }
@@ -1080,7 +1219,7 @@ window.addEventListener('resize',function(){
 
 
 async function switchClient(key){
-  if(!CLIENTS_CONFIG[key])return;
+  if(!CLIENTS_CONFIG[key]||CLIENTS_CONFIG[key].archived)return;
   currentClient=key;
   localStorage.setItem('currentClient',key);
   var cfg=CLIENTS_CONFIG[key];
@@ -1186,7 +1325,15 @@ function exportExcel(){
   });
   rows.push('');
   rows.push('\u05e1\u05d4"\u05db \u05e9\u05e2\u05d5\u05ea,'+formatDurH(totalMs));
-  rows.push('\u05dc\u05ea\u05e9\u05dc\u05d5\u05dd (100 \u20aa/\u05e9\u05e2\u05d4),'+payment+' \u20aa');
+  var xcfg=CLIENTS_CONFIG[currentClient];
+  if(isBankClient(xcfg)){
+    var xb=bankCalc(xcfg,totalMs);
+    rows.push('חבילה חודשית ('+xcfg.bank_hours+' שעות),'+xcfg.bank_price+' \u20aa');
+    rows.push('שעות נוספות,'+(xb.extraMin?fmtMin(xb.extraMin)+' × '+xcfg.extra_hour_price+' \u20aa = '+xb.extra+' \u20aa':'כלול בחבילה'));
+    rows.push('סה"כ לתשלום,'+xb.total+' \u20aa');
+  }else{
+    rows.push('\u05dc\u05ea\u05e9\u05dc\u05d5\u05dd (100 \u20aa/\u05e9\u05e2\u05d4),'+payment+' \u20aa');
+  }
   var csv=String.fromCharCode(65279)+rows.join(String.fromCharCode(10));
   var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
   var url=URL.createObjectURL(blob);
@@ -1215,8 +1362,17 @@ function exportPDF(){
     var descText=showClientCol?(parts.text||'\u2014'):(e.desc||'\u2014');
     return '<tr><td>'+d.toLocaleDateString('he-IL')+'</td><td>\u05d9\u05d5\u05dd '+days[d.getDay()]+'</td><td>'+formatTime(e.start)+'</td><td>'+formatTime(e.end)+'</td><td>'+formatDur(e.end-e.start)+'</td><td>'+(e.topic||'')+'</td>'+clientCell+'<td>'+descText+'</td></tr>';
   }).join('');
+  var summaryHTML='<div class="summary"><div class="sum-item"><label>\u05e1\u05d4\u05f3\u05f3\u05db \u05e9\u05e2\u05d5\u05ea</label><div class="val">'+formatDurH(totalMs)+'</div></div><div class="sum-item"><label>\u05ea\u05e2\u05e8\u05d9\u05e3</label><div class="val">100 \u20aa / \u05e9\u05e2\u05d4</div></div><div class="sum-item"><label>\u05dc\u05ea\u05e9\u05dc\u05d5\u05dd</label><div class="val green">\u20aa'+payment.toLocaleString()+'</div></div></div>';
+  if(isBankClient(cfg)){
+    var pb=bankCalc(cfg,totalMs);
+    var extraLine=pb.extraMin
+      ?'שעות נוספות: '+fmtMin(pb.extraMin)+' × '+fmtILS(cfg.extra_hour_price)+' = '+fmtILS(pb.extra)
+      :'שעות נוספות: אין · כלול בחבילה';
+    summaryHTML='<div class="summary"><div class="sum-item"><label>\u05e1\u05d4\u05f3\u05f3\u05db \u05e9\u05e2\u05d5\u05ea</label><div class="val">'+formatDurH(totalMs)+'</div></div></div>'
+      +'<div class="bank-sum"><div>חבילה חודשית: '+cfg.bank_hours+' שעות — '+fmtILS(cfg.bank_price)+'</div><div>'+extraLine+'</div><div class="bank-total">סה״כ לתשלום: <span class="green">'+fmtILS(pb.total)+'</span></div></div>';
+  }
   var win=window.open('','_blank');
-  win.document.write('<!DOCTYPE html><html dir="rtl" lang="he"><head><meta charset="UTF-8"><title>\u05d3\u05d5\u05d7 \u05e9\u05e2\u05d5\u05ea - '+monthLabel+'</title><style>body{font-family:Arial,sans-serif;padding:30px;color:#0f172a;direction:rtl}h1{font-size:22px;margin-bottom:4px}.sub{color:#64748b;font-size:14px;margin-bottom:24px}table{width:100%;border-collapse:collapse;font-size:13px}th{background:#0f172a;color:white;padding:9px 12px;text-align:right;font-weight:600}td{padding:8px 12px;border-bottom:1px solid #e2e8f0}tr:nth-child(even) td{background:#f8fafc}.summary{margin-top:24px;background:#f0f4f8;border-radius:8px;padding:16px 20px;display:flex;gap:40px}.sum-item label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px}.sum-item .val{font-size:20px;font-weight:700}.sum-item .val.green{color:#00c896}@media print{.no-print{display:none}}</style></head><body><h1>\u05d3\u05d5\u05d7 \u05e9\u05e2\u05d5\u05ea \u05e2\u05d1\u05d5\u05d3\u05d4</h1><div class="sub">\u05e2\u05d3\u05df \u05d1\u05e8\u05d5\u05da \u00b7 '+monthLabel+'</div><table><thead><tr><th>\u05ea\u05d0\u05e8\u05d9\u05da</th><th>\u05d9\u05d5\u05dd</th><th>\u05d4\u05ea\u05d7\u05dc\u05d4</th><th>\u05e1\u05d9\u05d5\u05dd</th><th>\u05de\u05e9\u05da</th><th>\u05e0\u05d5\u05e9\u05d0</th>'+(showClientCol?'<th>\u05dc\u05e7\u05d5\u05d7</th>':'')+'<th>\u05ea\u05d9\u05d0\u05d5\u05e8</th></tr></thead><tbody>'+rows+'</tbody></table><div class="summary"><div class="sum-item"><label>\u05e1\u05d4\u05f3\u05f3\u05db \u05e9\u05e2\u05d5\u05ea</label><div class="val">'+formatDurH(totalMs)+'</div></div><div class="sum-item"><label>\u05ea\u05e2\u05e8\u05d9\u05e3</label><div class="val">100 \u20aa / \u05e9\u05e2\u05d4</div></div><div class="sum-item"><label>\u05dc\u05ea\u05e9\u05dc\u05d5\u05dd</label><div class="val green">\u20aa'+payment.toLocaleString()+'</div></div></div><br><button class="no-print" onclick="window.print()" style="padding:10px 24px;background:#0f172a;color:white;border:none;border-radius:8px;font-size:14px;cursor:pointer">\ud83d\udda8\ufe0f \u05d4\u05d3\u05e4\u05e1 / \u05e9\u05de\u05d5\u05e8 PDF</button></body></html>');
+  win.document.write('<!DOCTYPE html><html dir="rtl" lang="he"><head><meta charset="UTF-8"><title>\u05d3\u05d5\u05d7 \u05e9\u05e2\u05d5\u05ea - '+monthLabel+'</title><style>body{font-family:Arial,sans-serif;padding:30px;color:#0f172a;direction:rtl}h1{font-size:22px;margin-bottom:4px}.sub{color:#64748b;font-size:14px;margin-bottom:24px}table{width:100%;border-collapse:collapse;font-size:13px}th{background:#0f172a;color:white;padding:9px 12px;text-align:right;font-weight:600}td{padding:8px 12px;border-bottom:1px solid #e2e8f0}tr:nth-child(even) td{background:#f8fafc}.summary{margin-top:24px;background:#f0f4f8;border-radius:8px;padding:16px 20px;display:flex;gap:40px}.sum-item label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px}.sum-item .val{font-size:20px;font-weight:700}.sum-item .val.green{color:#00c896}.bank-sum{margin-top:12px;background:#f0f4f8;border-radius:8px;padding:16px 20px;font-size:15px;line-height:1.9}.bank-total{font-size:18px;font-weight:700;margin-top:4px}.green{color:#00c896}@media print{.no-print{display:none}}</style></head><body><h1>\u05d3\u05d5\u05d7 \u05e9\u05e2\u05d5\u05ea \u05e2\u05d1\u05d5\u05d3\u05d4</h1><div class="sub">\u05e2\u05d3\u05df \u05d1\u05e8\u05d5\u05da \u00b7 '+monthLabel+'</div><table><thead><tr><th>\u05ea\u05d0\u05e8\u05d9\u05da</th><th>\u05d9\u05d5\u05dd</th><th>\u05d4\u05ea\u05d7\u05dc\u05d4</th><th>\u05e1\u05d9\u05d5\u05dd</th><th>\u05de\u05e9\u05da</th><th>\u05e0\u05d5\u05e9\u05d0</th>'+(showClientCol?'<th>\u05dc\u05e7\u05d5\u05d7</th>':'')+'<th>\u05ea\u05d9\u05d0\u05d5\u05e8</th></tr></thead><tbody>'+rows+'</tbody></table>'+summaryHTML+'<br><button class="no-print" onclick="window.print()" style="padding:10px 24px;background:#0f172a;color:white;border:none;border-radius:8px;font-size:14px;cursor:pointer">\ud83d\udda8\ufe0f \u05d4\u05d3\u05e4\u05e1 / \u05e9\u05de\u05d5\u05e8 PDF</button></body></html>');
   win.document.close();
 }
 
@@ -1326,14 +1482,49 @@ function filterClientMonth(){
 }
 
 
+var editingClientId=null; // null = adding a new client
 function openAddClient(){
+  editingClientId=null;
+  document.getElementById('addClientTitle').textContent='הוסף לקוח חדש';
+  document.getElementById('addClientSaveBtn').textContent='הוסף לקוח';
   document.getElementById('newClientName').value='';
   document.getElementById('newClientTopics').value='false';
+  setBillingFields({billing_mode:'hourly',bank_hours:10,bank_price:1000,extra_hour_price:100});
   document.querySelectorAll('.color-opt').forEach(function(b,i){b.classList.toggle('active',i===0);});
   selectedColor={c1:'#00c896',c2:'#0097b2'};
   document.getElementById('addClientModal').classList.add('open');
 }
-function closeAddClient(){document.getElementById('addClientModal').classList.remove('open');}
+function openEditClient(id){
+  var cfg=CLIENTS_CONFIG[id];if(!cfg)return;
+  editingClientId=id;
+  closeManageClients();
+  document.getElementById('addClientTitle').textContent='עריכת לקוח';
+  document.getElementById('addClientSaveBtn').textContent='שמור שינויים';
+  document.getElementById('newClientName').value=cfg.name||'';
+  document.getElementById('newClientTopics').value=cfg.topics?'true':'false';
+  setBillingFields({billing_mode:cfg.billing_mode,bank_hours:cfg.bank_hours||10,bank_price:cfg.bank_price||1000,extra_hour_price:cfg.extra_hour_price||100});
+  selectedColor={c1:cfg.color1,c2:cfg.color2};
+  document.querySelectorAll('.color-opt').forEach(function(b){b.classList.toggle('active',b.dataset.c1===cfg.color1&&b.dataset.c2===cfg.color2);});
+  document.getElementById('addClientModal').classList.add('open');
+}
+function setBillingFields(b){
+  document.getElementById('newClientBilling').value=b.billing_mode==='bank'?'bank':'hourly';
+  document.getElementById('newBankHours').value=b.bank_hours;
+  document.getElementById('newBankPrice').value=b.bank_price;
+  document.getElementById('newExtraPrice').value=b.extra_hour_price;
+  toggleBankFields();
+}
+function toggleBankFields(){
+  document.getElementById('bankFields').style.display=document.getElementById('newClientBilling').value==='bank'?'block':'none';
+}
+function readBillingFields(){
+  var mode=document.getElementById('newClientBilling').value;
+  if(mode!=='bank')return{billing_mode:'hourly'};
+  var h=Number(document.getElementById('newBankHours').value),p=Number(document.getElementById('newBankPrice').value),x=Number(document.getElementById('newExtraPrice').value);
+  if(!(h>0)||!(p>=0)||!(x>=0))return null;
+  return{billing_mode:'bank',bank_hours:h,bank_price:p,extra_hour_price:x};
+}
+function closeAddClient(){document.getElementById('addClientModal').classList.remove('open');editingClientId=null;}
 function selectColor(btn){
   document.querySelectorAll('.color-opt').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
@@ -1343,23 +1534,102 @@ async function saveNewClient(){
   var name=document.getElementById('newClientName').value.trim();
   if(!name){alert('הכנס שם לקוח');return;}
   var topics=document.getElementById('newClientTopics').value==='true';
+  var billing=readBillingFields();
+  if(!billing){alert('בדוק את שדות בנק השעות (שעות בחבילה חייבות להיות גדולות מ-0)');return;}
+  if(editingClientId){await saveClientEdit(editingClientId,name,topics,billing);return;}
   var id=name.toLowerCase().replace(/[^a-z0-9]/g,'_').replace(/__+/g,'_')+Date.now();
+  var row={id:id,name:name,color1:selectedColor.c1,color2:selectedColor.c2,topics:topics};
+  // Only send billing columns for bank clients, so adding hourly clients works even before the SQL migration
+  if(billing.billing_mode==='bank')Object.assign(row,billing);
   try{
     const r=await fetch(SUPABASE_URL+'/rest/v1/clients',{
       method:'POST',
       headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body:JSON.stringify({id:id,name:name,color1:selectedColor.c1,color2:selectedColor.c2,topics:topics})
+      body:JSON.stringify(row)
     });
     if(!r.ok)throw new Error('failed');
-    CLIENTS_CONFIG[id]={name:name,color1:selectedColor.c1,color2:selectedColor.c2,topics:topics};
+    CLIENTS_CONFIG[id]=clientFromRow(row);
+    cacheClients();
     buildClientSwitcher();
     closeAddClient();
     showToast('לקוח "'+name+'" נוסף!');
     await switchClient(id);
   }catch(e){
-    showToast('שגיאה בהוספת לקוח');
+    showToast(billing.billing_mode==='bank'?'שגיאה בהוספת לקוח — ודא שהרצת את ה-SQL של בנק השעות':'שגיאה בהוספת לקוח');
   }
 }
+async function saveClientEdit(id,name,topics,billing){
+  var cfg=CLIENTS_CONFIG[id];
+  var patch={name:name,color1:selectedColor.c1,color2:selectedColor.c2,topics:topics};
+  if(billing.billing_mode==='bank')Object.assign(patch,billing);
+  else if(cfg.billing_mode==='bank')patch.billing_mode='hourly';
+  try{
+    const r=await fetch(SUPABASE_URL+'/rest/v1/clients?id=eq.'+encodeURIComponent(id),{
+      method:'PATCH',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify(patch)
+    });
+    if(!r.ok)throw new Error('failed');
+    Object.assign(cfg,patch);
+    cacheClients();
+    buildClientSwitcher();
+    closeAddClient();
+    showToast('הלקוח עודכן ✓');
+    if(id===currentClient)await switchClient(id);
+  }catch(e){
+    showToast('שגיאה בעדכון לקוח — ודא שהרצת את ה-SQL');
+  }
+}
+
+// ---- Client management + archive ----
+function openManageClients(){renderManageClients();document.getElementById('manageClientsModal').classList.add('open');}
+function closeManageClients(){document.getElementById('manageClientsModal').classList.remove('open');}
+function clientRowHTML(id,archived){
+  var c=CLIENTS_CONFIG[id];
+  var badge=isBankClient(c)?'<span class="cl-badge">בנק '+c.bank_hours+' ש׳</span>':'';
+  var btns=archived
+    ?'<button class="cl-btn" onclick="viewClientReport(\''+id+'\')">👁 דוח</button><button class="cl-btn" onclick="setClientArchived(\''+id+'\',false)">↩️ שחזר</button>'
+    :'<button class="cl-btn" onclick="openEditClient(\''+id+'\')">✏️ ערוך</button><button class="cl-btn" onclick="setClientArchived(\''+id+'\',true)">🗄️ לארכיון</button>';
+  return '<div class="cl-row"><span class="cl-dot" style="background:linear-gradient(135deg,'+esc(c.color1)+','+esc(c.color2)+')"></span><span class="cl-name">'+esc(c.name)+'</span>'+badge+btns+'</div>';
+}
+function renderManageClients(){
+  var act=activeClientIds(),arc=archivedClientIds();
+  document.getElementById('manageClientsBody').innerHTML=
+    '<div class="cl-section">לקוחות פעילים ('+act.length+')</div><div class="cl-list">'+act.map(function(id){return clientRowHTML(id,false);}).join('')+'</div>'
+    +'<div class="cl-section">🗄️ ארכיון ('+arc.length+')</div><div class="cl-list">'
+    +(arc.length?arc.map(function(id){return clientRowHTML(id,true);}).join(''):'<div class="cl-empty">אין לקוחות בארכיון. לקוח בארכיון נעלם מהרשימה, אבל כל השעות שלו נשמרות.</div>')+'</div>';
+}
+function viewClientReport(id){window.open(location.href.split('?')[0]+'?view=client&c='+encodeURIComponent(id),'_blank');}
+async function setClientArchived(id,archived){
+  var c=CLIENTS_CONFIG[id];if(!c)return;
+  if(archived){
+    if(activeClientIds().length<=1){showToast('חייב להישאר לפחות לקוח פעיל אחד');return;}
+    if(id===currentClient&&state.active){showToast('עצור את השעון לפני העברה לארכיון');return;}
+    if(id!==currentClient){
+      try{
+        var ar=await fetch(SUPABASE_URL+'/rest/v1/active_sessions?client_id=eq.'+encodeURIComponent(id),{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});
+        var aj=await ar.json();
+        if(Array.isArray(aj)&&aj.length){showToast('יש שעון רץ ללקוח הזה — עצור אותו קודם');return;}
+      }catch(e){}
+    }
+    if(!confirm('להעביר את "'+c.name+'" לארכיון?\nהלקוח ייעלם מהרשימה, אבל כל השעות שלו יישמרו ואפשר לשחזר בכל רגע.'))return;
+  }
+  try{
+    const r=await fetch(SUPABASE_URL+'/rest/v1/clients?id=eq.'+encodeURIComponent(id),{
+      method:'PATCH',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({archived:archived})
+    });
+    if(!r.ok)throw new Error('failed');
+  }catch(e){showToast('שגיאה — ודא שהרצת את ה-SQL (עמודת archived)');return;}
+  c.archived=archived;
+  cacheClients();
+  buildClientSwitcher();
+  renderManageClients();
+  showToast(archived?'"'+c.name+'" הועבר לארכיון 🗄️':'"'+c.name+'" שוחזר ✓');
+  if(archived&&id===currentClient)await switchClient(activeClientIds()[0]);
+}
+document.getElementById('manageClientsModal').addEventListener('click',function(e){if(e.target===this)closeManageClients();});
 
 document.getElementById('addClientModal').addEventListener('click',function(e){if(e.target===this)closeAddClient();});
 
@@ -1392,7 +1662,7 @@ async function init(){
       const cldata=await clr.json();
       if(cldata&&cldata[0]){
         currentClient=clientKey;
-        CLIENTS_CONFIG[clientKey]={name:cldata[0].name,color1:cldata[0].color1,color2:cldata[0].color2,topics:cldata[0].topics};
+        CLIENTS_CONFIG[clientKey]=clientFromRow(cldata[0]);
         document.querySelector('.client-header h1').textContent=cldata[0].name+' - שעות עבודה - עדן ברוך';
       }
       const cr=await fetch(SUPABASE_URL+'/rest/v1/entries?client_id=eq.'+clientKey+'&order=start_time.asc',{
@@ -1409,7 +1679,7 @@ async function init(){
     // Instant render of the saved client from cache, so we don't flash the default client
     try{
       var cached=JSON.parse(localStorage.getItem('clients_cache')||'null');
-      if(cached&&cached[currentClient]){
+      if(cached&&cached[currentClient]&&!cached[currentClient].archived){
         CLIENTS_CONFIG=cached;
         var cfg0=cached[currentClient];
         var nameEl0=document.getElementById('currentClientName');
@@ -1426,7 +1696,7 @@ async function init(){
       }
     }catch(e){}
     await loadClients();
-    if(!CLIENTS_CONFIG[currentClient])currentClient=Object.keys(CLIENTS_CONFIG)[0];
+    if(!CLIENTS_CONFIG[currentClient]||CLIENTS_CONFIG[currentClient].archived)currentClient=activeClientIds()[0];
     await switchClient(currentClient);
     // Keep the running-timer state in sync across devices
     if(activePollInterval)clearInterval(activePollInterval);
@@ -1438,5 +1708,4 @@ async function init(){
 init();
 </script>
 
-
-<span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>
+</body></html>
